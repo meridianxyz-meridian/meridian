@@ -19,7 +19,7 @@ export async function uploadToWalrus(
   const res = await fetch(`${PUBLISHER}/v1/blobs?epochs=${epochs}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/octet-stream' },
-    body: data,
+    body: data as unknown as BodyInit,
   });
   if (!res.ok) throw new Error(`Walrus upload failed: ${res.statusText}`);
   const json = (await res.json()) as any;

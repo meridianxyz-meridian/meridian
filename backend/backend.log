@@ -1,0 +1,5 @@
+
+> meridian-backend@1.0.0 dev
+> tsx watch src/index.ts
+
+Meridian backend running on :3001
