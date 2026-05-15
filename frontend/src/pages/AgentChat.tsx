@@ -7,7 +7,7 @@ interface Message {
   content: string;
 }
 
-const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3001';
+const API = '';
 
 const PATIENT_CONTEXT = `
 Patient: ${DEMO_PATIENT.name}, DOB: ${DEMO_PATIENT.dob}
@@ -56,12 +56,15 @@ export function AgentChat() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
-          history: messages,
+          history: messages.slice(1).filter(m => m.content), // skip initial greeting, only send user/assistant pairs
           patientContext: PATIENT_CONTEXT,
         }),
       });
 
-      if (!res.ok) throw new Error('Agent unavailable');
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({ error: res.statusText }));
+        throw new Error(`${res.status}: ${errData.error ?? res.statusText}`);
+      }
 
       const reader = res.body!.getReader();
       const decoder = new TextDecoder();
@@ -91,12 +94,12 @@ export function AgentChat() {
           } catch {}
         }
       }
-    } catch {
+    } catch (err: any) {
       setMessages(prev => {
         const updated = [...prev];
         updated[updated.length - 1] = {
           ...updated[updated.length - 1],
-          content: "I'm having trouble connecting to the AI service. Please check your API configuration.",
+          content: `Error: ${err?.message ?? String(err)}`,
         };
         return updated;
       });

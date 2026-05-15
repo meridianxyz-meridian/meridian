@@ -12,7 +12,7 @@ interface UploadedFile {
   error?: string;
 }
 
-const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3001';
+const API = '';
 
 export function UploadRecords() {
   const account = useCurrentAccount();

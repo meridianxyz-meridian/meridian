@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { DollarSign, FlaskConical, TrendingUp, CheckCircle } from 'lucide-react';
 import { DEMO_AI_RESULT } from '../data/demoData';
 
-const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3001';
+const API = '';
 
 interface Listing {
   id: string;
