@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Loader2 } from 'lucide-react';
+import { Send, Bot, User, Loader2, Trash2 } from 'lucide-react';
 import { DEMO_AI_RESULT, DEMO_PATIENT } from '../data/demoData';
+import { useAuth } from '../hooks/useAuth';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  timestamp: number;
 }
 
 const API = '';
@@ -24,41 +26,69 @@ const STARTER_QUESTIONS = [
   'Prepare a briefing for my new doctor',
 ];
 
+const INITIAL_MESSAGE: Message = {
+  role: 'assistant',
+  content: `Hi ${DEMO_PATIENT.name.split(' ')[0]}! I'm your Meridian health advocate. I've reviewed your 12 years of medical records. I found **3 medication interactions** you should know about — including a serious one between Ibuprofen and Lisinopril that could be affecting your kidneys. What would you like to discuss?`,
+  timestamp: 0,
+};
+
+function getHistoryKey(address: string) {
+  return `meridian_chat_${address}`;
+}
+
 export function AgentChat() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: `Hi ${DEMO_PATIENT.name.split(' ')[0]}! I'm your Meridian health advocate. I've reviewed your 12 years of medical records. I found **3 medication interactions** you should know about — including a serious one between Ibuprofen and Lisinopril that could be affecting your kidneys. What would you like to discuss?`,
-    },
-  ]);
+  const { address } = useAuth();
+  const storageKey = getHistoryKey(address ?? 'demo');
+
+  const [messages, setMessages] = useState<Message[]>(() => {
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) return JSON.parse(saved) as Message[];
+    } catch {}
+    return [INITIAL_MESSAGE];
+  });
+
   const [input, setInput] = useState('');
   const [streaming, setStreaming] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Persist history to localStorage on every change
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(messages));
+  }, [messages, storageKey]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  const clearHistory = () => {
+    localStorage.removeItem(storageKey);
+    setMessages([INITIAL_MESSAGE]);
+  };
+
   const sendMessage = async (text: string) => {
     if (!text.trim() || streaming) return;
 
-    const userMsg: Message = { role: 'user', content: text };
-    setMessages(prev => [...prev, userMsg]);
+    const userMsg: Message = { role: 'user', content: text, timestamp: Date.now() };
+    const updatedMessages = [...messages, userMsg];
+    setMessages(updatedMessages);
     setInput('');
     setStreaming(true);
 
-    const assistantMsg: Message = { role: 'assistant', content: '' };
+    const assistantMsg: Message = { role: 'assistant', content: '', timestamp: Date.now() };
     setMessages(prev => [...prev, assistantMsg]);
 
     try {
+      // Send only actual conversation (skip initial greeting, only user/assistant pairs)
+      const history = updatedMessages
+        .slice(1)
+        .filter(m => m.content)
+        .map(m => ({ role: m.role, content: m.content }));
+
       const res = await fetch(`${API}/api/agent/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: text,
-          history: messages.slice(1).filter(m => m.content), // skip initial greeting, only send user/assistant pairs
-          patientContext: PATIENT_CONTEXT,
-        }),
+        body: JSON.stringify({ message: text, history, patientContext: PATIENT_CONTEXT }),
       });
 
       if (!res.ok) {
@@ -109,10 +139,23 @@ export function AgentChat() {
   };
 
   return (
-    <div className="flex flex-col h-full max-w-3xl" style={{ height: 'calc(100vh - 4rem)' }}>
-      <div className="mb-4">
-        <h1 className="text-2xl font-bold">AI Health Advocate</h1>
-        <p className="text-slate-400 text-sm mt-1">Powered by Claude • Full access to your health history</p>
+    <div className="flex flex-col max-w-3xl" style={{ height: 'calc(100vh - 4rem)' }}>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h1 className="text-2xl font-bold">AI Health Advocate</h1>
+          <p className="text-slate-400 text-sm mt-0.5">
+            Powered by Gemini · {messages.length - 1} messages in history
+            {address && <span className="ml-2 text-slate-600">· {address.slice(0, 8)}...</span>}
+          </p>
+        </div>
+        <button
+          onClick={clearHistory}
+          className="flex items-center gap-1.5 px-3 py-1.5 glass rounded-lg text-xs text-slate-400 hover:text-red-400 transition-colors"
+          title="Clear chat history"
+        >
+          <Trash2 size={13} /> Clear history
+        </button>
       </div>
 
       {/* Messages */}
@@ -127,16 +170,23 @@ export function AgentChat() {
             </div>
             <div className={`glass rounded-xl px-4 py-3 max-w-[80%] text-sm leading-relaxed
               ${msg.role === 'user' ? 'bg-teal-500/10 border-teal-500/20' : ''}`}>
-              {msg.content || (streaming && i === messages.length - 1
-                ? <Loader2 className="animate-spin text-teal-400" size={16} />
-                : null)}
+              {msg.content
+                ? msg.content
+                : (streaming && i === messages.length - 1
+                  ? <Loader2 className="animate-spin text-teal-400" size={16} />
+                  : null)}
+              {msg.timestamp > 0 && (
+                <div className="text-xs text-slate-600 mt-1">
+                  {new Date(msg.timestamp).toLocaleTimeString()}
+                </div>
+              )}
             </div>
           </div>
         ))}
         <div ref={bottomRef} />
       </div>
 
-      {/* Starter questions */}
+      {/* Starter questions — show when only initial message */}
       {messages.length === 1 && (
         <div className="flex gap-2 flex-wrap my-3">
           {STARTER_QUESTIONS.map(q => (

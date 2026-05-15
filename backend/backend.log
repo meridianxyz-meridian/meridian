@@ -132,3 +132,7 @@ Emitted 'error' event on Server instance at:
 }
 
 Node.js v25.8.2
+3:28:48 PM [tsx] change in ./src\index.ts Rerunning...
+cMeridian backend running on :3001
+3:31:10 PM [tsx] change in ./src\routes\patient.ts Restarting...
+cMeridian backend running on :3001

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Clock, AlertTriangle, Pill, FlaskConical, Stethoscope, FileImage, Activity } from 'lucide-react';
-import { DEMO_AI_RESULT, DEMO_RECORDS } from '../data/demoData';
+import { Link } from 'react-router-dom';
+import { AlertTriangle, Pill, FlaskConical, Stethoscope, FileImage, Activity, Upload } from 'lucide-react';
+import { usePatientData } from '../hooks/usePatientData';
 
 const typeConfig: Record<string, { icon: any; color: string; bg: string }> = {
   lab:          { icon: FlaskConical, color: 'text-blue-400',   bg: 'bg-blue-500/10' },
@@ -17,10 +18,11 @@ const significanceBadge: Record<string, string> = {
 };
 
 export function Timeline() {
+  const { records, analysis, hasData } = usePatientData();
   const [filter, setFilter] = useState<string>('all');
   const types = ['all', 'lab', 'prescription', 'diagnosis', 'imaging', 'visit'];
 
-  const records = DEMO_RECORDS
+  const filtered = records
     .filter(r => filter === 'all' || r.type === filter)
     .sort((a, b) => b.date.localeCompare(a.date));
 
@@ -28,61 +30,76 @@ export function Timeline() {
     <div className="space-y-6 max-w-3xl">
       <div>
         <h1 className="text-2xl font-bold">Health Timeline</h1>
-        <p className="text-slate-400 mt-1">12 years of records synthesized by your AI health advocate</p>
+        <p className="text-slate-400 mt-1">
+          {hasData ? `${records.length} records · AI-synthesized` : 'No records yet'}
+        </p>
       </div>
+
+      {!hasData && (
+        <div className="glass rounded-xl p-12 text-center border border-dashed border-slate-600">
+          <Upload className="mx-auto text-slate-600 mb-4" size={40} />
+          <p className="text-slate-500 mb-4">Upload records to build your health timeline</p>
+          <Link to="/app/upload" className="px-5 py-2 bg-teal-500 text-white rounded-lg text-sm">Upload Records</Link>
+        </div>
+      )}
 
       {/* AI Summary */}
-      <div className="glass rounded-xl p-5 border border-teal-500/20">
-        <p className="text-slate-300 text-sm leading-relaxed">{DEMO_AI_RESULT.summary}</p>
-      </div>
+      {analysis?.summary && (
+        <div className="glass rounded-xl p-5 border border-teal-500/20">
+          <p className="text-slate-300 text-sm leading-relaxed">{analysis.summary}</p>
+        </div>
+      )}
 
-      {/* Interactions alert */}
-      <div className="glass rounded-xl p-4 border border-orange-500/30">
-        <div className="flex items-center gap-2 mb-3">
-          <AlertTriangle className="text-orange-400" size={18} />
-          <span className="font-semibold text-orange-400 text-sm">
-            {DEMO_AI_RESULT.interactions.length} Medication Interactions Detected
-          </span>
+      {/* Interactions */}
+      {analysis?.interactions && analysis.interactions.length > 0 && (
+        <div className="glass rounded-xl p-4 border border-orange-500/30">
+          <div className="flex items-center gap-2 mb-3">
+            <AlertTriangle className="text-orange-400" size={18} />
+            <span className="font-semibold text-orange-400 text-sm">
+              {analysis.interactions.length} Medication Interactions Detected
+            </span>
+          </div>
+          <div className="space-y-2">
+            {analysis.interactions.map((ix, i) => (
+              <div key={i} className="text-sm">
+                <span className={`inline-block px-2 py-0.5 rounded text-xs mr-2 font-medium
+                  ${ix.severity === 'severe' ? 'bg-red-500/20 text-red-400' :
+                    ix.severity === 'moderate' ? 'bg-orange-500/20 text-orange-400' :
+                    'bg-yellow-500/20 text-yellow-400'}`}>
+                  {ix.severity}
+                </span>
+                <span className="text-slate-300">{ix.drug1} + {ix.drug2}</span>
+                <p className="text-slate-500 text-xs mt-0.5 ml-14">{ix.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="space-y-2">
-          {DEMO_AI_RESULT.interactions.map((ix, i) => (
-            <div key={i} className="text-sm">
-              <span className={`inline-block px-2 py-0.5 rounded text-xs mr-2 font-medium
-                ${ix.severity === 'severe' ? 'bg-red-500/20 text-red-400' :
-                  ix.severity === 'moderate' ? 'bg-orange-500/20 text-orange-400' :
-                  'bg-yellow-500/20 text-yellow-400'}`}>
-                {ix.severity}
-              </span>
-              <span className="text-slate-300">{ix.drug1} + {ix.drug2}</span>
-              <p className="text-slate-500 text-xs mt-0.5 ml-14">{ix.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      )}
 
       {/* Filter tabs */}
-      <div className="flex gap-2 flex-wrap">
-        {types.map(t => (
-          <button
-            key={t}
-            onClick={() => setFilter(t)}
-            className={`px-3 py-1.5 rounded-lg text-sm capitalize transition-colors
-              ${filter === t ? 'bg-teal-500/20 text-teal-400' : 'text-slate-400 hover:text-slate-200 glass'}`}
-          >
-            {t}
-          </button>
-        ))}
-      </div>
+      {hasData && (
+        <div className="flex gap-2 flex-wrap">
+          {types.map(t => (
+            <button
+              key={t}
+              onClick={() => setFilter(t)}
+              className={`px-3 py-1.5 rounded-lg text-sm capitalize transition-colors
+                ${filter === t ? 'bg-teal-500/20 text-teal-400' : 'text-slate-400 hover:text-slate-200 glass'}`}
+            >
+              {t} {filter === t && `(${filtered.length})`}
+            </button>
+          ))}
+        </div>
+      )}
 
-      {/* Timeline */}
-      <div className="relative space-y-3">
-        {records.map((record, i) => {
+      {/* Records */}
+      <div className="space-y-3">
+        {filtered.map((record) => {
           const cfg = typeConfig[record.type] ?? typeConfig.visit;
           const Icon = cfg.icon;
-          const sig = (record as any).significance ?? 'routine';
-
+          const sig = record.significance ?? 'routine';
           return (
-            <div key={i} className="flex gap-4">
+            <div key={record.id} className="flex gap-4">
               <div className={`shrink-0 w-10 h-10 rounded-full ${cfg.bg} flex items-center justify-center`}>
                 <Icon className={cfg.color} size={18} />
               </div>
@@ -93,12 +110,13 @@ export function Timeline() {
                     <p className="text-xs text-slate-500 mt-0.5">{record.source}</p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
-                    <span className={`text-xs px-2 py-0.5 rounded ${significanceBadge[sig]}`}>
-                      {sig}
-                    </span>
+                    <span className={`text-xs px-2 py-0.5 rounded ${significanceBadge[sig]}`}>{sig}</span>
                     <span className="text-xs text-slate-500">{record.date}</span>
                   </div>
                 </div>
+                {record.walrusBlobId && (
+                  <p className="text-xs text-slate-700 mt-1 font-mono truncate">Walrus: {record.walrusBlobId}</p>
+                )}
               </div>
             </div>
           );
