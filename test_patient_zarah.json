@@ -1,0 +1,106 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "zarah-001",
+        "name": [{ "family": "Ahmed", "given": ["Zarah"] }],
+        "birthDate": "1990-03-15",
+        "gender": "female"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-001",
+        "subject": { "reference": "Patient/zarah-001" },
+        "code": {
+          "coding": [{ "system": "http://snomed.info/sct", "code": "709044004", "display": "Chronic kidney disease stage 2" }]
+        },
+        "onsetDateTime": "2018-06-10",
+        "clinicalStatus": { "coding": [{ "code": "active" }] }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-002",
+        "subject": { "reference": "Patient/zarah-001" },
+        "code": {
+          "coding": [{ "system": "http://snomed.info/sct", "code": "38341003", "display": "Hypertension" }]
+        },
+        "onsetDateTime": "2016-02-20",
+        "clinicalStatus": { "coding": [{ "code": "active" }] }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-001",
+        "subject": { "reference": "Patient/zarah-001" },
+        "medicationCodeableConcept": {
+          "coding": [{ "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "29046", "display": "Lisinopril 10mg" }]
+        },
+        "authoredOn": "2016-03-01",
+        "status": "active",
+        "dosageInstruction": [{ "text": "10mg once daily" }]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-002",
+        "subject": { "reference": "Patient/zarah-001" },
+        "medicationCodeableConcept": {
+          "coding": [{ "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "5640", "display": "Ibuprofen 400mg" }]
+        },
+        "authoredOn": "2023-11-15",
+        "status": "active",
+        "dosageInstruction": [{ "text": "400mg as needed for pain" }]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-001",
+        "subject": { "reference": "Patient/zarah-001" },
+        "code": {
+          "coding": [{ "system": "http://loinc.org", "code": "2160-0", "display": "Creatinine [Mass/volume] in Serum or Plasma" }]
+        },
+        "valueQuantity": { "value": 1.4, "unit": "mg/dL" },
+        "effectiveDateTime": "2024-01-10",
+        "status": "final"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-002",
+        "subject": { "reference": "Patient/zarah-001" },
+        "code": {
+          "coding": [{ "system": "http://loinc.org", "code": "55284-4", "display": "Blood pressure systolic and diastolic" }]
+        },
+        "component": [
+          { "code": { "coding": [{ "code": "8480-6", "display": "Systolic BP" }] }, "valueQuantity": { "value": 148, "unit": "mmHg" } },
+          { "code": { "coding": [{ "code": "8462-4", "display": "Diastolic BP" }] }, "valueQuantity": { "value": 92, "unit": "mmHg" } }
+        ],
+        "effectiveDateTime": "2024-01-10",
+        "status": "final"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "allergy-001",
+        "patient": { "reference": "Patient/zarah-001" },
+        "code": {
+          "coding": [{ "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "7980", "display": "Penicillin" }]
+        },
+        "reaction": [{ "description": "Anaphylaxis", "severity": "severe" }],
+        "clinicalStatus": { "coding": [{ "code": "active" }] }
+      }
+    }
+  ]
+}

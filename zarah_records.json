@@ -1,0 +1,132 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "code": { "text": "Type 2 Diabetes", "coding": [{ "display": "Type 2 Diabetes Mellitus" }] },
+        "clinicalStatus": { "coding": [{ "code": "active" }] },
+        "onsetDateTime": "2013-04-12",
+        "recorder": { "display": "Dr. Chen, St. Mary's Hospital" }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "code": { "text": "Hypertension", "coding": [{ "display": "Essential Hypertension" }] },
+        "clinicalStatus": { "coding": [{ "code": "active" }] },
+        "onsetDateTime": "2015-09-03",
+        "recorder": { "display": "Dr. Patel, Riverside Medical Center" }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "code": { "text": "Hypothyroidism", "coding": [{ "display": "Primary Hypothyroidism" }] },
+        "clinicalStatus": { "coding": [{ "code": "active" }] },
+        "onsetDateTime": "2018-02-14",
+        "recorder": { "display": "Dr. Williams, Northside Clinic" }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "medicationCodeableConcept": { "text": "Metformin 1000mg", "coding": [{ "display": "Metformin 1000mg" }] },
+        "authoredOn": "2020-05-18",
+        "dosageInstruction": [{ "text": "twice daily with meals" }],
+        "requester": { "display": "Dr. Chen, St. Mary's" }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "medicationCodeableConcept": { "text": "Lisinopril 10mg", "coding": [{ "display": "Lisinopril 10mg" }] },
+        "authoredOn": "2015-09-03",
+        "dosageInstruction": [{ "text": "once daily" }],
+        "requester": { "display": "Dr. Patel, Riverside" }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "medicationCodeableConcept": { "text": "Levothyroxine 50mcg", "coding": [{ "display": "Levothyroxine 50mcg" }] },
+        "authoredOn": "2018-02-14",
+        "dosageInstruction": [{ "text": "once daily on empty stomach" }],
+        "requester": { "display": "Dr. Williams, Northside" }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "medicationCodeableConcept": { "text": "Ibuprofen 400mg", "coding": [{ "display": "Ibuprofen 400mg (NSAID)" }] },
+        "authoredOn": "2022-08-25",
+        "dosageInstruction": [{ "text": "as needed for pain" }],
+        "requester": { "display": "Dr. Torres, Valley Health" }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "code": { "text": "HbA1c", "coding": [{ "display": "Hemoglobin A1c" }] },
+        "effectiveDateTime": "2024-01-22",
+        "valueQuantity": { "value": 7.6, "unit": "%" },
+        "performer": [{ "display": "LabCorp" }]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "code": { "text": "eGFR", "coding": [{ "display": "Estimated Glomerular Filtration Rate" }] },
+        "effectiveDateTime": "2024-01-22",
+        "valueQuantity": { "value": 61, "unit": "mL/min/1.73m²" },
+        "performer": [{ "display": "LabCorp" }]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "code": { "text": "eGFR", "coding": [{ "display": "Estimated Glomerular Filtration Rate" }] },
+        "effectiveDateTime": "2016-03-22",
+        "valueQuantity": { "value": 78, "unit": "mL/min/1.73m²" },
+        "performer": [{ "display": "Quest Diagnostics" }]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "code": { "text": "TSH", "coding": [{ "display": "Thyroid Stimulating Hormone" }] },
+        "effectiveDateTime": "2019-07-30",
+        "valueQuantity": { "value": 3.2, "unit": "mIU/L" },
+        "performer": [{ "display": "LabCorp" }]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "code": { "text": "Blood Pressure", "coding": [{ "display": "Systolic Blood Pressure" }] },
+        "effectiveDateTime": "2022-08-25",
+        "valueQuantity": { "value": 138, "unit": "mmHg" },
+        "performer": [{ "display": "Valley Health Partners" }]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "code": { "text": "Chest X-Ray" },
+        "effectiveDateTime": "2017-11-08",
+        "conclusion": "No acute cardiopulmonary process. Heart size normal.",
+        "performer": [{ "display": "City Radiology" }]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "type": [{ "text": "Annual Physical Exam" }],
+        "period": { "start": "2022-08-25" },
+        "reasonCode": [{ "text": "Routine annual physical — BP 138/88, weight 172 lbs" }],
+        "serviceProvider": { "display": "Valley Health Partners" }
+      }
+    }
+  ]
+}

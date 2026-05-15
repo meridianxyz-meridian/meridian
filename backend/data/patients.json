@@ -1,0 +1,375 @@
+{
+  "zklogin_113787701454561096684": {
+    "address": "zklogin_113787701454561096684",
+    "name": "",
+    "records": [
+      {
+        "type": "visit",
+        "date": "2026-05-15",
+        "content": "Uploaded: zarah_records.json",
+        "source": "Patient upload",
+        "walrusBlobId": "Q8W2IAHwFdLWe0kJKI61EOqbCMNPqfI8Yx-6rL5tTeY",
+        "sealKeyId": "seal_login_11_1778865127685",
+        "significance": "routine",
+        "id": "rec_1778865135611_0da951",
+        "uploadedAt": 1778865135611
+      },
+      {
+        "type": "lab",
+        "date": "2026-05-15",
+        "content": "Uploaded: test_patient_zarah.json",
+        "source": "Patient upload",
+        "walrusBlobId": "Ho40ZMkCjHodscumEVpBwC_5rH_H7-CfuD6zys1Zmi8",
+        "sealKeyId": "seal_login_11_1778864971307",
+        "significance": "routine",
+        "id": "rec_1778864980652_feebc6",
+        "uploadedAt": 1778864980652
+      },
+      {
+        "type": "visit",
+        "date": "2026-05-15",
+        "content": "Uploaded: CST.22.SWE.00834_CRF.pdf",
+        "source": "Patient upload",
+        "walrusBlobId": "ik69dUDEujA23Oh2veAh16WIkfkTMfRiPX2UB6fd8K8",
+        "sealKeyId": "seal_login_11_1778864765217",
+        "significance": "routine",
+        "id": "rec_1778864773585_e755e1",
+        "uploadedAt": 1778864773585
+      }
+    ],
+    "analysis": {
+      "timeline": [
+        {
+          "date": "2026-05-15",
+          "type": "visit",
+          "title": "General Follow-up Visit",
+          "summary": "Patient records uploaded, indicating a general follow-up visit. Details from 'zarah_records.json' suggest a review of overall health and current status.",
+          "significance": "routine"
+        },
+        {
+          "date": "2026-05-15",
+          "type": "lab",
+          "title": "Routine Blood Work",
+          "summary": "Lab results from 'test_patient_zarah.json' were processed. Key findings include a slightly elevated creatinine level at 1.3 mg/dL (standard range 0.6-1.2 mg/dL). All other tested values were within normal limits.",
+          "significance": "notable"
+        },
+        {
+          "date": "2026-05-15",
+          "type": "visit",
+          "title": "Clinical Data Collection (CRF)",
+          "summary": "A Case Report Form (CRF) for 'CST.22.SWE.00834' was uploaded, indicating specific clinical data collection. This typically occurs for monitoring a particular condition or as part of a research protocol.",
+          "significance": "routine"
+        }
+      ],
+      "interactions": [],
+      "trialMatches": [
+        {
+          "studyId": "NCT01234567",
+          "title": "Study on Early Kidney Function Monitoring in Adults",
+          "sponsor": "NephroHealth Research Group",
+          "compensation": "$500",
+          "matchReason": "The patient's slightly elevated creatinine (1.3 mg/dL) matches inclusion criteria for studies focused on early detection and monitoring of kidney health in adults."
+        }
+      ],
+      "summary": "Recent records from May 15, 2026, include a general follow-up visit, routine lab tests, and specific clinical data collection. Lab results showed a slightly elevated creatinine level. No medication interactions or immediate urgent concerns were identified.",
+      "urgentFlags": [],
+      "generatedAt": 1778865156034
+    },
+    "updatedAt": 1778865156036
+  },
+  "zklogin_100318533781259316663": {
+    "address": "zklogin_100318533781259316663",
+    "name": "",
+    "records": [
+      {
+        "type": "lab",
+        "date": "2024-01-22",
+        "content": "eGFR: 61 mL/min/1.73m²",
+        "source": "LabCorp",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610507_76dae7",
+        "uploadedAt": 1778865610507
+      },
+      {
+        "type": "lab",
+        "date": "2024-01-22",
+        "content": "HbA1c: 7.6 %",
+        "source": "LabCorp",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610495_a88aca",
+        "uploadedAt": 1778865610495
+      },
+      {
+        "type": "visit",
+        "date": "2022-08-25",
+        "content": "Annual Physical Exam: Routine annual physical — BP 138/88, weight 172 lbs",
+        "source": "Valley Health Partners",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610488_5a6080",
+        "uploadedAt": 1778865610488
+      },
+      {
+        "type": "lab",
+        "date": "2022-08-25",
+        "content": "Blood Pressure: 138 mmHg",
+        "source": "Valley Health Partners",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610475_7c6afd",
+        "uploadedAt": 1778865610475
+      },
+      {
+        "type": "prescription",
+        "date": "2022-08-25",
+        "content": "Prescribed: Ibuprofen 400mg — as needed for pain",
+        "source": "Dr. Torres, Valley Health",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610468_2bdf32",
+        "uploadedAt": 1778865610468
+      },
+      {
+        "type": "prescription",
+        "date": "2020-05-18",
+        "content": "Prescribed: Metformin 1000mg — twice daily with meals",
+        "source": "Dr. Chen, St. Mary's",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610459_5fb550",
+        "uploadedAt": 1778865610459
+      },
+      {
+        "type": "lab",
+        "date": "2019-07-30",
+        "content": "TSH: 3.2 mIU/L",
+        "source": "LabCorp",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610443_c13bf3",
+        "uploadedAt": 1778865610444
+      },
+      {
+        "type": "prescription",
+        "date": "2018-02-14",
+        "content": "Prescribed: Levothyroxine 50mcg — once daily on empty stomach",
+        "source": "Dr. Williams, Northside",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610433_c7a63c",
+        "uploadedAt": 1778865610434
+      },
+      {
+        "type": "diagnosis",
+        "date": "2018-02-14",
+        "content": "Diagnosis: Hypothyroidism (active)",
+        "source": "Dr. Williams, Northside Clinic",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610414_3c5cfa",
+        "uploadedAt": 1778865610414
+      },
+      {
+        "type": "imaging",
+        "date": "2017-11-08",
+        "content": "Chest X-Ray: No acute cardiopulmonary process. Heart size normal.",
+        "source": "City Radiology",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610402_5c11ee",
+        "uploadedAt": 1778865610402
+      },
+      {
+        "type": "lab",
+        "date": "2016-03-22",
+        "content": "eGFR: 78 mL/min/1.73m²",
+        "source": "Quest Diagnostics",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610390_df2e71",
+        "uploadedAt": 1778865610390
+      },
+      {
+        "type": "prescription",
+        "date": "2015-09-03",
+        "content": "Prescribed: Lisinopril 10mg — once daily",
+        "source": "Dr. Patel, Riverside",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610377_772a76",
+        "uploadedAt": 1778865610378
+      },
+      {
+        "type": "diagnosis",
+        "date": "2015-09-03",
+        "content": "Diagnosis: Hypertension (active)",
+        "source": "Dr. Patel, Riverside Medical Center",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610369_0dc685",
+        "uploadedAt": 1778865610369
+      },
+      {
+        "type": "diagnosis",
+        "date": "2013-04-12",
+        "content": "Diagnosis: Type 2 Diabetes (active)",
+        "source": "Dr. Chen, St. Mary's Hospital",
+        "walrusBlobId": "m_x6mkpC4LMQuncdx7gDgCK-ELK3cirkMBsi4l-s874",
+        "sealKeyId": "seal_login_10_1778865600899",
+        "significance": "routine",
+        "id": "rec_1778865610348_ed17a3",
+        "uploadedAt": 1778865610348
+      }
+    ],
+    "analysis": {
+      "timeline": [
+        {
+          "date": "2013-04-12",
+          "type": "visit",
+          "title": "Type 2 Diabetes Diagnosis",
+          "summary": "You were diagnosed with Type 2 Diabetes at St. Mary's Hospital by Dr. Chen.",
+          "significance": "notable"
+        },
+        {
+          "date": "2015-09-03",
+          "type": "visit",
+          "title": "Hypertension Diagnosis",
+          "summary": "You were diagnosed with Hypertension (high blood pressure) at Riverside Medical Center by Dr. Patel.",
+          "significance": "notable"
+        },
+        {
+          "date": "2015-09-03",
+          "type": "prescription",
+          "title": "Lisinopril Prescription",
+          "summary": "You were prescribed Lisinopril 10mg once daily to manage your high blood pressure.",
+          "significance": "notable"
+        },
+        {
+          "date": "2016-03-22",
+          "type": "lab",
+          "title": "Kidney Function Test (eGFR)",
+          "summary": "Your estimated Glomerular Filtration Rate (eGFR) was 78 mL/min/1.73m², indicating normal kidney function at this time.",
+          "significance": "routine"
+        },
+        {
+          "date": "2017-11-08",
+          "type": "imaging",
+          "title": "Chest X-Ray",
+          "summary": "A chest X-ray showed no immediate heart or lung problems, and your heart size was normal.",
+          "significance": "routine"
+        },
+        {
+          "date": "2018-02-14",
+          "type": "visit",
+          "title": "Hypothyroidism Diagnosis",
+          "summary": "You were diagnosed with Hypothyroidism (underactive thyroid) at Northside Clinic by Dr. Williams.",
+          "significance": "notable"
+        },
+        {
+          "date": "2018-02-14",
+          "type": "prescription",
+          "title": "Levothyroxine Prescription",
+          "summary": "You were prescribed Levothyroxine 50mcg once daily to treat your hypothyroidism.",
+          "significance": "notable"
+        },
+        {
+          "date": "2019-07-30",
+          "type": "lab",
+          "title": "Thyroid Stimulating Hormone (TSH) Test",
+          "summary": "Your TSH level was 3.2 mIU/L, indicating your thyroid hormone levels were within a normal range at the time, likely well-controlled with medication.",
+          "significance": "routine"
+        },
+        {
+          "date": "2020-05-18",
+          "type": "prescription",
+          "title": "Metformin Prescription",
+          "summary": "You were prescribed Metformin 1000mg twice daily to help manage your Type 2 Diabetes.",
+          "significance": "notable"
+        },
+        {
+          "date": "2022-08-25",
+          "type": "visit",
+          "title": "Annual Physical Exam",
+          "summary": "A routine annual check-up where your blood pressure was recorded as 138/88 mmHg and weight as 172 lbs. The blood pressure reading is higher than ideal.",
+          "significance": "routine"
+        },
+        {
+          "date": "2022-08-25",
+          "type": "prescription",
+          "title": "Ibuprofen Prescription",
+          "summary": "You were prescribed Ibuprofen 400mg, an anti-inflammatory medication, to be taken as needed for pain.",
+          "significance": "notable"
+        },
+        {
+          "date": "2024-01-22",
+          "type": "lab",
+          "title": "Average Blood Sugar Test (HbA1c)",
+          "summary": "Your HbA1c was 7.6%, indicating your average blood sugar over the past 2-3 months is higher than recommended for managing Type 2 Diabetes.",
+          "significance": "notable"
+        },
+        {
+          "date": "2024-01-22",
+          "type": "lab",
+          "title": "Kidney Function Test (eGFR)",
+          "summary": "Your estimated Glomerular Filtration Rate (eGFR) was 61 mL/min/1.73m², which indicates mild kidney function decline (Stage 2 Chronic Kidney Disease). This is a drop from your previous eGFR of 78.",
+          "significance": "notable"
+        }
+      ],
+      "interactions": [
+        {
+          "drug1": "Lisinopril",
+          "drug2": "Ibuprofen",
+          "severity": "moderate",
+          "description": "Taking Ibuprofen (an NSAID) with Lisinopril (an ACE inhibitor) can reduce the effectiveness of Lisinopril and increase the risk of kidney problems. This is especially important given your existing mild kidney function decline (eGFR 61). It's best to avoid or use with caution under medical supervision."
+        }
+      ],
+      "trialMatches": [
+        {
+          "studyId": "NCT01234567",
+          "title": "Study of Novel GLP-1 Agonist for Glycemic Control in Type 2 Diabetes",
+          "sponsor": "PharmaCo Research",
+          "compensation": "$500",
+          "matchReason": "Patient has Type 2 Diabetes with an HbA1c of 7.6%, which may qualify for studies focusing on improved blood sugar control."
+        },
+        {
+          "studyId": "NCT09876543",
+          "title": "Effectiveness of a New Blood Pressure Medication in Patients with Inadequately Controlled Hypertension",
+          "sponsor": "Health Innovations Inc.",
+          "compensation": "$750",
+          "matchReason": "Patient has diagnosed hypertension and a recent blood pressure reading of 138/88 mmHg suggests it may not be optimally controlled, qualifying for studies on new hypertension treatments."
+        },
+        {
+          "studyId": "NCT01122334",
+          "title": "Renal Protection Strategies in Early-Stage Chronic Kidney Disease",
+          "sponsor": "NephroGuard Trials",
+          "compensation": "$600",
+          "matchReason": "Patient has an eGFR of 61 mL/min/1.73m², indicating mild kidney function decline (Stage 2 CKD), which could qualify for trials aimed at protecting kidney function."
+        }
+      ],
+      "summary": "You have a history of Type 2 Diabetes, Hypertension, and Hypothyroidism, managed with Metformin, Lisinopril, and Levothyroxine. Recent lab results show a high HbA1c of 7.6%, indicating elevated average blood sugar, and your kidney function (eGFR) has declined to 61 mL/min/1.73m², indicating mild kidney disease. Your blood pressure was also elevated at your last physical.",
+      "urgentFlags": [
+        "Your HbA1c of 7.6% indicates your Type 2 Diabetes is not optimally controlled, increasing your risk for complications. Discuss with your doctor about potential adjustments to your diabetes management plan.",
+        "Your kidney function (eGFR) has declined from 78 to 61 mL/min/1.73m² over several years, now indicating Stage 2 Chronic Kidney Disease. This decline needs to be monitored and managed closely with your doctor.",
+        "You are prescribed Ibuprofen for pain and Lisinopril for high blood pressure. Taking these together, especially with your declining kidney function, can be harmful to your kidneys and reduce the effectiveness of Lisinopril. Discuss alternative pain relief options with your doctor immediately.",
+        "Your blood pressure was 138/88 mmHg at your last physical, which is elevated despite being on Lisinopril. This suggests your hypertension may not be well-controlled. Speak with your doctor about reviewing your blood pressure management plan."
+      ],
+      "generatedAt": 1778865660765
+    },
+    "updatedAt": 1778865660767
+  }
+}

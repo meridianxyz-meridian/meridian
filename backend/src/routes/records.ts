@@ -26,6 +26,15 @@ recordsRouter.post('/upload', upload.single('file'), async (req, res) => {
 
     const { blobId, suiObjectId } = await uploadToWalrus(ciphertext);
 
+    // Auto-parse FHIR bundles into individual records
+    let parsedRecords: import('../services/fhirParser.js').ParsedRecord[] = [];
+    if (recordType === 'fhir' || req.file.originalname.endsWith('.json')) {
+      try {
+        const bundle = JSON.parse(req.file.buffer.toString('utf-8'));
+        parsedRecords = parseFhirBundle(bundle);
+      } catch { /* not a valid FHIR bundle, treat as plain file */ }
+    }
+
     res.json({
       blobId,
       suiObjectId,
@@ -36,6 +45,7 @@ recordsRouter.post('/upload', upload.single('file'), async (req, res) => {
       recordType: recordType ?? 'unknown',
       originalName: req.file.originalname,
       size: req.file.size,
+      parsedRecords,
     });
   } catch (err: any) {
     res.status(500).json({ error: err.message });

@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload, FileText, CheckCircle, Loader2, AlertCircle } from 'lucide-react';
-import { useCurrentAccount } from '@mysten/dapp-kit';
 import { usePatientData } from '../hooks/usePatientData';
+import { useAuth } from '../hooks/useAuth';
 
 interface UploadedFile {
   name: string;
@@ -15,7 +15,7 @@ interface UploadedFile {
 const API = '';
 
 export function UploadRecords() {
-  const account = useCurrentAccount();
+  const { address } = useAuth();
   const { addRecord } = usePatientData();
   const [files, setFiles] = useState<UploadedFile[]>([]);
 
@@ -25,23 +25,35 @@ export function UploadRecords() {
     try {
       const form = new FormData();
       form.append('file', file);
-      form.append('patientAddress', account?.address ?? '0xdemo');
+      form.append('patientAddress', address ?? '0xdemo');
       form.append('recordType', file.name.endsWith('.json') ? 'fhir' : 'document');
 
       const res = await fetch(`${API}/api/records/upload`, { method: 'POST', body: form });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
 
-      // Save to real patient store
-      addRecord({
-        type: detectType(file.name),
-        date: new Date().toISOString().slice(0, 10),
-        content: `Uploaded: ${file.name}`,
-        source: 'Patient upload',
-        walrusBlobId: data.blobId,
-        sealKeyId: data.sealKeyId,
-        significance: 'routine',
-      });
+      // Save parsed FHIR records individually, or fall back to single record
+      if (data.parsedRecords?.length > 0) {
+        await Promise.all(data.parsedRecords.map((r: any) => addRecord({
+          type: r.type,
+          date: r.date,
+          content: r.content,
+          source: r.source,
+          walrusBlobId: data.blobId,
+          sealKeyId: data.sealKeyId,
+          significance: 'routine',
+        })));
+      } else {
+        await addRecord({
+          type: detectType(file.name),
+          date: new Date().toISOString().slice(0, 10),
+          content: `Uploaded: ${file.name}`,
+          source: 'Patient upload',
+          walrusBlobId: data.blobId,
+          sealKeyId: data.sealKeyId,
+          significance: 'routine',
+        });
+      }
 
       setFiles(prev => prev.map(f =>
         f.name === file.name ? { ...f, status: 'done', blobId: data.blobId } : f
@@ -51,7 +63,7 @@ export function UploadRecords() {
         f.name === file.name ? { ...f, status: 'error', error: err.message } : f
       ));
     }
-  }, [account, addRecord]);
+  }, [address, addRecord]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: useCallback((accepted: File[]) => accepted.forEach(uploadFile), [uploadFile]),
