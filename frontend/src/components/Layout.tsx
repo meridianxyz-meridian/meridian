@@ -5,6 +5,7 @@ import {
   ShoppingCart, MessageCircle, Activity, LogOut, Copy, CheckCircle
 } from 'lucide-react';
 import { useState } from 'react';
+import { useAuth, clearZkLogin } from '../hooks/useAuth';
 
 const nav = [
   { to: '/app', icon: LayoutDashboard, label: 'Dashboard' },
@@ -17,25 +18,36 @@ const nav = [
 
 export function Layout() {
   const account = useCurrentAccount();
+  const { address, isZkLogin } = useAuth();
+  const zkEmail = sessionStorage.getItem('zklogin_email');
   const { mutate: disconnect } = useDisconnectWallet();
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
 
   const handleDisconnect = () => {
     disconnect();
+    clearZkLogin();
     navigate('/');
   };
 
   const copyAddress = () => {
-    if (!account?.address) return;
-    navigator.clipboard.writeText(account.address);
+    if (!address) return;
+    navigator.clipboard.writeText(address);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Display label: Google email for zkLogin, short address for wallet
+  const displayLabel = isZkLogin && zkEmail
+    ? zkEmail
+    : address
+      ? `${address.slice(0, 10)}...${address.slice(-8)}`
+      : '';
+
+  const connectionLabel = isZkLogin ? 'Google (zkLogin)' : 'Connected wallet';
+
   return (
     <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
       <aside className="w-64 glass flex flex-col p-4 gap-2 shrink-0">
         <div className="flex items-center gap-2 px-2 py-4 mb-2">
           <Activity className="text-teal-400" size={24} />
@@ -59,32 +71,32 @@ export function Layout() {
           </NavLink>
         ))}
 
-        {/* Wallet info at bottom */}
         <div className="mt-auto space-y-2">
-          {account && (
+          {address && (
             <div className="glass rounded-lg p-3">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs text-slate-500">Connected wallet</span>
+                <span className="text-xs text-slate-500">{connectionLabel}</span>
                 <button onClick={copyAddress} className="text-slate-600 hover:text-teal-400 transition-colors">
                   {copied ? <CheckCircle size={12} /> : <Copy size={12} />}
                 </button>
               </div>
-              <p className="text-xs font-mono text-slate-400 truncate">
-                {account.address.slice(0, 10)}...{account.address.slice(-8)}
+              <p className="text-xs text-slate-400 truncate">
+                {displayLabel}
               </p>
             </div>
           )}
+          {/* Only show ConnectButton if not zkLogin */}
+          {!isZkLogin && !account && <ConnectButton />}
           <button
             onClick={handleDisconnect}
             className="w-full flex items-center gap-2 px-3 py-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg text-sm transition-colors"
           >
             <LogOut size={16} />
-            Disconnect
+            {isZkLogin ? 'Sign out' : 'Disconnect'}
           </button>
         </div>
       </aside>
 
-      {/* Main content */}
       <main className="flex-1 overflow-y-auto p-8">
         <Outlet />
       </main>

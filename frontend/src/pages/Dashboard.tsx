@@ -5,13 +5,16 @@ import { useAuth } from '../hooks/useAuth';
 import { usePatientData } from '../hooks/usePatientData';
 
 export function Dashboard() {
-  const { address } = useAuth();
+  const { address, isZkLogin } = useAuth();
+  const zkEmail = sessionStorage.getItem('zklogin_email');
   const { records, analysis, name, setName, runAnalysis, hasData, loading } = usePatientData();
   const [analyzing, setAnalyzing] = useState(false);
   const [editingName, setEditingName] = useState(false);
   const [nameInput, setNameInput] = useState('');
 
-  const displayName = name || `${address?.slice(0, 6)}...${address?.slice(-4)}`;
+  const displayName = name
+    || (isZkLogin && zkEmail ? zkEmail.split('@')[0] : null)
+    || (address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'User');
 
   const handleAnalyze = async () => {
     setAnalyzing(true);
